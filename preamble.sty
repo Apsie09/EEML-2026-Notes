@@ -1,0 +1,130 @@
+\ProvidesPackage{preamble}
+
+% hyperref pulls in url itself, so obeyspaces has to be requested before that happens.
+% It matters because several directories in this project have spaces in their names and
+% \path would otherwise silently swallow them.
+\PassOptionsToPackage{obeyspaces}{url}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+% Scalable sans (URW Nimbus). Without it \sffamily resolves to bitmap cmss and
+% microtype's font expansion fails fatally.
+\usepackage[scaled=0.92]{helvet}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{booktabs,tabularx}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,decorations.pathreplacing}
+\usepackage{caption}
+\usepackage[colorlinks=true,linkcolor=linknavy,citecolor=linknavy,urlcolor=linknavy]{hyperref}
+% Let long URLs, DOIs and file paths break anywhere, otherwise they overrun the margin.
+\usepackage{xurl}
+
+% === page ===
+\setstocksize{297mm}{210mm}
+\settrimmedsize{297mm}{210mm}{*}
+\setlrmarginsandblock{28mm}{32mm}{*}
+\setulmarginsandblock{25mm}{30mm}{*}
+\setheadfoot{\onelineskip}{2\onelineskip}
+\setheaderspaces{*}{2\onelineskip}{*}
+\checkandfixthelayout
+
+% === colours ===
+\definecolor{linknavy}{HTML}{1F4E79}
+\definecolor{asideblue}{HTML}{2E6DA4}
+\definecolor{asidebg}{HTML}{F2F7FC}
+\definecolor{uncertainred}{HTML}{B23A2E}
+\definecolor{rulegrey}{HTML}{8A8A8A}
+
+% === headings ===
+\chapterstyle{section}
+\setlength{\beforechapskip}{0pt}
+\setlength{\midchapskip}{0pt}
+\setlength{\afterchapskip}{1.1\onelineskip}
+\renewcommand{\chaptitlefont}{\normalfont\LARGE\bfseries}
+\renewcommand{\chapnumfont}{\normalfont\LARGE\bfseries}
+\setsecheadstyle{\normalfont\large\bfseries}
+\setsubsecheadstyle{\normalfont\normalsize\bfseries}
+\setsubsubsecheadstyle{\normalfont\normalsize\itshape}
+\setlength{\beforesecskip}{1.4\onelineskip plus 2pt minus 1pt}
+\setlength{\aftersecskip}{0.5\onelineskip}
+
+\makepagestyle{eeml}
+\makeevenhead{eeml}{\small\itshape\leftmark}{}{}
+\makeoddhead{eeml}{}{}{\small\itshape\rightmark}
+\makeevenfoot{eeml}{}{\small\thepage}{}
+\makeoddfoot{eeml}{}{\small\thepage}{}
+\makeheadrule{eeml}{\textwidth}{0.4pt}
+\pagestyle{eeml}
+
+% === lists, penalties, floats ===
+\setlist[itemize]{nosep,leftmargin=*,topsep=3pt,partopsep=0pt}
+\setlist[enumerate]{nosep,leftmargin=*,topsep=3pt,partopsep=0pt}
+\setlist[description]{nosep,leftmargin=*,topsep=3pt,font=\normalfont\bfseries}
+
+\widowpenalty=10000
+\clubpenalty=10000
+\brokenpenalty=10000
+\predisplaypenalty=10000
+
+\captionsetup{font=small,labelfont=bf,width=0.92\textwidth}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.12}
+\renewcommand{\floatpagefraction}{0.7}
+
+% === theorem-ish environments ===
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{claim}[definition]{Claim}
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
+
+% === lecture byline ===
+% \lecturemeta{speaker}{affiliation}. Affiliation may be empty.
+\newcommand{\lecturemeta}[2]{%
+  \begingroup
+  \setlength{\parskip}{0pt}%
+  \noindent\textbf{#1}%
+  \if\relax\detokenize{#2}\relax\else\textcolor{rulegrey}{\,\textbullet\,}\textit{#2}\fi
+  \par\vspace{2pt}%
+  \noindent\textcolor{rulegrey}{\rule{\textwidth}{0.4pt}}%
+  \endgroup
+  \vspace{0.8\onelineskip}\par\noindent\ignorespaces}
+
+% === my own additions, visibly marked ===
+\newtcolorbox{aside}[1][]{%
+  breakable, enhanced, sharp corners,
+  colback=asidebg, colframe=asideblue,
+  boxrule=0pt, leftrule=2.2pt, top=14pt, bottom=5pt, left=6pt, right=6pt,
+  fontupper=\small,
+  before skip=0.7\onelineskip, after skip=0.7\onelineskip,
+  overlay unbroken and first={%
+    \node[anchor=north west, font=\scriptsize\bfseries\sffamily,
+          text=asideblue, inner sep=0pt]
+      at ([xshift=6pt,yshift=-4pt]frame.north west) {NOT FROM THE LECTURE};},
+  #1}
+
+% === things I could not read with confidence ===
+\newcommand{\uncertain}[1]{%
+  \textcolor{uncertainred}{\uline{#1}}\textsuperscript{\textcolor{uncertainred}{?}}}
+\usepackage[normalem]{ulem}
+
+% === unresolved references ===
+\newcommand{\todo}[1]{%
+  \textcolor{uncertainred}{\textbf{[TODO:} \textsf{\small #1}\textbf{]}}}
+
+% === bibliography ===
+% natbib=true so \citep and \citet are available, as used throughout the chapters.
+\usepackage[backend=biber,style=numeric-comp,sorting=nyt,maxbibnames=6,
+            giveninits=true,doi=true,eprint=true,url=false,isbn=false,
+            natbib=true]{biblatex}
+\renewcommand*{\bibfont}{\small}
+
+\endinput

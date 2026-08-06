@@ -1,0 +1,120 @@
+\chapter{Cross-cutting Themes}
+\label{ch:themes}
+
+Six ideas recurred across the week, and in three cases two speakers reached the same territory from
+opposite directions or disagreed outright. Those deserve the most attention, since a disagreement
+between people who both know the field marks a genuinely open question rather than a gap in the
+notes.
+
+\section*{1. The i.i.d.\ assumption, and a real disagreement about how bad it is}
+
+Chandar closes the opening lecture (Chapter~\ref{ch:01-intro-deep-learning}) by naming the frontier
+without explaining it: current practice optimises the i.i.d.\ case, while true learning is
+sequential, online and continual. Three later lectures pick that up, and they do not agree.
+
+Lyle (Chapter~\ref{ch:06-continual-learning}) treats it as an engineering fault with an identifiable
+mechanism. Plasticity is lost because Adam's second-moment estimate is stale after a task change, so
+the effective step size explodes, and because a large step pushes preactivations outside the
+receptive field of the nonlinearity. Both are fixable by normalising, controlling parameter
+norm, and avoiding regression on ill-conditioned targets, with resetting and distilling as a
+fallback. Her verdict on forgetting is even more deflationary: if the data can be kept, the problem
+is easy.
+
+Pascanu (Chapter~\ref{ch:07-to-be-figured-out}) makes a structural claim instead. Gradient-based
+credit assignment works by tug-of-war dynamics between competing examples, and that mechanism
+\emph{requires} shuffled data. On this reading catastrophic forgetting is not a side effect but is
+what failed credit assignment looks like, and Lyle's fixes are palliative because they stabilise
+training without giving the learner explicit knowledge composition. He offers as hypotheses that
+there is no compositional knowledge in these models and that scale is a crutch making learning
+possible at all.
+
+Deac's tutorial material (Chapter~\ref{ch:04-intro-reinforcement-learning}) is the third data point
+and it supports Pascanu quietly: experience replay exists precisely because consecutive transitions
+are correlated and SGD assumes independence. Replay is continual learning solved by refusing to be
+in the continual setting, which is exactly Lyle's advice, and it is also an admission that nobody
+knows how to learn from a correlated stream directly.
+
+The disagreement is testable, which is what makes it interesting;
+Chapter~\ref{ch:research-directions} sketches an experiment that would separate the two positions.
+
+\section*{2. Symmetry imposed versus symmetry measured}
+
+Veli\v{c}kovi\'{c} (Chapter~\ref{ch:11-geometric-deep-learning}) and Isola
+(Chapter~\ref{ch:02-representational-geometry}) are doing the same thing from opposite ends.
+Veli\v{c}kovi\'{c} specifies the symmetry group first and derives which layers are admissible,
+strongly enough that CNNs are shown to be the only linear translation-equivariant maps on a grid.
+Isola takes trained networks and measures, after the fact, which transformations their
+representations are invariant to, then argues the right equivalence is isometry because distance is
+what downstream tasks consume. One prescribes the invariance, the other discovers it.
+
+The most striking evidence that this is one idea rather than two is that Cho
+(Chapter~\ref{ch:05-statistics-estimation}) derives a permutation-equivariant architecture, a
+transformer with positional embeddings removed, from exactly Veli\v{c}kovi\'{c}'s reasoning, in a
+lecture about statistics, without either speaker referencing the other. When the same argument
+appears independently in three lectures it is probably load-bearing.
+
+\section*{3. Where knowledge gets injected}
+
+Three lectures address the same question: if a model cannot learn everything from data, where does
+the rest come from?
+
+Cho's answer is to stop modelling the generative process. Inference need not invert generation, so an
+estimator can be trained directly on problems with known answers, at the price of making
+identifiability relative to the prior over problems, the hypothesis space and the optimiser. Pascanu's
+answer is the mirror image: there is no prior-free machine learning system, every construction step
+is a bias, so the question is never whether to encode knowledge but which encoding pays. And
+Tapu\v{s}kovi\'{c} (Chapter~\ref{ch:08-ml-for-mathematics}) locates it in the evaluator, arguing that
+in the 67-problem study search was never the bottleneck and that building a cheap, exact,
+ungameable score \emph{is} the research.
+
+Isola sits awkwardly across this. His lecture uses fixed metrics such as CKA to establish that
+models converge, but his stated opinion is that there is no future for distance functions that are
+not learned. Taken together with Cho, that points somewhere uncomfortable: if both the model and
+the yardstick are fitted, convergence results become hard to state without circularity.
+
+\section*{4. The spectrum as the design surface}
+
+Three unrelated lectures turn out to be doing spectral engineering. Dieleman
+(Chapter~\ref{ch:03-diffusion-models}) explains why diffusion works on images by observing that
+natural images have a decaying power spectrum while Gaussian noise is flat, so the noise schedule is
+effectively a frequency schedule and sampling recovers bands coarsest-first. Stankovi\'{c}
+(Chapter~\ref{ch:09-spectral-analysis-dags}) cannot filter on a DAG at all until a spectrum is
+restored, because nilpotency collapses every eigenvalue to zero. And Pascanu's linear recurrent unit
+is designed entirely in the spectral domain, with the eigenvalue modulus setting the memory horizon
+and the initialisation annulus chosen so that no unit begins with a memory too short to matter.
+
+In all three the eigenvalues are not a diagnostic applied afterwards; they are the thing being
+chosen.
+
+\section*{5. Arithmetic is cheap, moving data is not}
+
+Alistarh (Chapter~\ref{ch:10-efficient-learning}) and Pascanu converge on one conclusion from
+opposite directions. Alistarh's framing is a 2500-fold gap between compute demand and hardware
+capability over five years, and his remedy is to reduce bit-width so that weights occupy less of the
+scarce resource. Pascanu profiles a TPU, finds roughly an eightfold gap between HBM and VMEM
+transfer rates, and concludes the recurrent block should be cheap because the memory traffic
+dominates. Neither is optimising FLOPs. Both treat arithmetic as abundant and data movement as the
+constraint, which is the lesson worth carrying into any efficiency work: the first question is what
+has to move, not how many operations there are.
+
+\section*{6. Transformers are not what we call them}
+
+Three lectures reframe the same architecture, and the reframings are compatible.
+Veli\v{c}kovi\'{c} argues transformers are graph neural networks and not sequence models, with tokens
+as nodes and the causal mask as a neighbourhood, which makes overmixing and oversquashing inherited
+graph pathologies rather than novel LLM problems. Stankovi\'{c} notes in passing that a causal
+attention mask is a strictly upper triangular matrix, hence a DAG, hence spectrally degenerate.
+Pascanu argues transformers are a factorisation into simple components that must be scaled, and that
+attention might not be all we need, while also reporting honestly that the hybrid alternative
+retains 25\% global softmax attention because pure recurrence loses on language.
+
+Read together they say the architecture is better understood as a message-passing operator on a
+particular graph than as a sequence model, and that its known limitations follow from that graph.
+
+\begin{aside}
+One theme is conspicuous by its absence. Nobody argued for scale as a sufficient answer. Alistarh
+opens with the bitter lesson and immediately derives a mandate for efficiency from it; Pascanu says
+scale might work but is not the only option; Tapu\v{s}kovi\'{c} reports that the tool beats the
+literature only where the literature is thin. That is a summer school's selection effect as much as a fact
+about the field, but it is consistent across eleven speakers.
+\end{aside}

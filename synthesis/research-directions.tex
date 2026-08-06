@@ -1,0 +1,114 @@
+\chapter{Research Directions}
+\label{ch:research-directions}
+
+Each item below is attributed to where it came from. Items marked \textbf{flagged} were named as
+open by the speaker. Items marked \textbf{inferred} are editorial, drawn from placing two lectures
+next to each other, and should be treated as untested conjecture rather than as anything the
+speakers endorsed.
+
+\section*{Problems the speakers explicitly left open}
+
+\paragraph{Measuring what we care about when building a representation. Flagged, Pascanu
+(Chapter~\ref{ch:07-to-be-figured-out}).} He argues that non-i.i.d.\ structure cannot be exploited
+because we do not know how to measure representation quality during training, and separately because
+learning lacks compositionality and locality. The measurement problem is the tractable half: it is a
+concrete request for a training-time signal that predicts downstream representation quality.
+
+\paragraph{Evaluating continual learning at all. Flagged, Lyle
+(Chapter~\ref{ch:06-continual-learning}).} She states the meta-problem plainly and neither option is
+acceptable: a pre-specified task sequence is artificial, a naturally continual application is
+uncontrolled. Any result in the field inherits this weakness, so a defensible evaluation protocol
+would be a contribution in itself.
+
+\paragraph{In-context learning as a continual learning mechanism. Flagged, Lyle.} Her closing slide
+calls this an exciting paradigm that brings its own challenges, without saying which. Given the rest
+of her lecture, the obvious question is whether in-context adaptation escapes the plasticity problem
+or merely relocates it into the context window.
+
+\paragraph{What else admits a learned estimator. Flagged, Cho
+(Chapter~\ref{ch:05-statistics-estimation}).} Asked directly on a slide. He has done population
+standard deviation, mutual information, Bayesian predictive distributions and causal effects. The
+programme's requirement is a simulator of problems with known answers, which is the real filter on
+what comes next.
+
+\paragraph{Whether a world model aligns the way vision and language models do. Flagged, Isola
+(Chapter~\ref{ch:02-representational-geometry}).} Posed as an open question on a slide. His
+convergence results are for vision and language; whether a model trained on interaction and dynamics
+lands on the same kernel is untested and would discriminate between the three hypotheses he offers
+about what "same" means.
+
+\paragraph{Generalisation in diffusion models, and flow maps. Flagged, Dieleman
+(Chapter~\ref{ch:03-diffusion-models}).} His closing slide lists what he did not cover:
+generalisation versus memorisation, integrating diffusion models via flow
+maps~\citep{dieleman2026flowmaps}, reward-based steering and finetuning, and multimodal generative
+models. The flow-maps thread is also flagged in the personal notes.
+
+\paragraph{Quantized training, and extending the linearity theorem. Flagged, Alistarh
+(Chapter~\ref{ch:10-efficient-learning}).} He names quantized training as the frontier and says big
+open questions sit at the intersection of representations, optimisation and compute. There is also a
+precise gap on the slide: the linearity theorem holds only for methods that do not update weights, so
+it covers AWQ but not GPTQ, which is awkward because GPTQ's compensating update is its whole
+mechanism.
+
+\paragraph{Building faithful evaluators, and learning a Galois action. Flagged,
+Tapu\v{s}kovi\'{c} (Chapter~\ref{ch:08-ml-for-mathematics}).} His stated conclusion is that search is
+not the bottleneck and constructing a cheap, exact, ungameable score is the research. He also asks
+directly whether the action of the Cosmic Galois Group on Feynman Mellin motives can be learned, and
+observes that machine certification stops exactly where the deep objects begin, which is a diagnosis
+of where formalisation effort should go.
+
+\paragraph{Gauge equivariance without parallel transport. Flagged, Veli\v{c}kovi\'{c}
+(Chapter~\ref{ch:11-geometric-deep-learning}).} Conditioning across arbitrarily related pairs of
+gauges is described as very hard, and the working solution sidesteps it by transporting features
+first. Whether the harder formulation buys anything is open.
+
+\paragraph{Why real-world reinforcement learning fails. Flagged, Deac
+(Chapter~\ref{ch:04-intro-reinforcement-learning}).} Her own live bandit collected zero votes over 53
+rounds, and the closing slide enumerates the causes: reward confounded with content,
+non-stationarity, sparsity, noise, varying turnout, delayed and batched feedback, and a false
+independence assumption across action dimensions. That list is a better research agenda than most
+papers' future-work sections.
+
+\section*{Directions inferred here, not reported}
+
+\paragraph{Give causally-masked transformers a spectrum. Inferred, from Stankovi\'{c} and
+Veli\v{c}kovi\'{c}.} Stankovi\'{c} notes that a causal attention mask is strictly upper triangular and
+therefore nilpotent, and Veli\v{c}kovi\'{c} argues a transformer \emph{is} a GNN on that graph. Putting
+the two together, every decoder-only transformer is a graph whose adjacency spectrum has collapsed,
+and her zero-padding construction is a candidate for restoring it: add a return path with enough zero
+tokens that the induced feedback cannot reach real tokens within the depth of the network. Whether
+the restored spectrum says anything useful about attention is entirely untested, and the construction
+was designed for graph filters rather than learned attention, so this may not survive contact.
+
+\paragraph{An experiment that would separate Lyle from Pascanu. Inferred.} Lyle claims plasticity
+loss is a fixable optimiser and architecture fault; Pascanu claims gradient-based credit assignment
+structurally needs i.i.d.\ data. Apply Lyle's full remedy, normalisation, norm control, avoiding
+ill-conditioned targets, and then test not whether training remains stable, which she has shown, but
+whether knowledge \emph{composes}: does a model trained on tasks $A$ then $B$ solve compositions of
+$A$ and $B$ better than one trained on $B$ alone? Lyle's account predicts that stability suffices;
+Pascanu's predicts that composition still fails. No such experiment appears in either lecture.
+
+\paragraph{A learned representational similarity metric. Inferred, from Cho and Isola.} Isola says
+unlearned distance functions have no future; Cho shows how to learn an estimator whenever problems
+with known answers can be simulated. Representational similarity is a candidate: train an estimator
+on pairs of representations related by known transformations, with the transformation as the label.
+The hazard is the circularity flagged in Chapter~\ref{ch:themes}: convergence results measured with
+a fitted metric are hard to interpret, and confronting that directly might be the more valuable
+output.
+
+\paragraph{Model the compensating update in the linearity theorem. Inferred, from Alistarh.} The
+theorem's disclaimer excludes weight-updating methods. GPTQ's update is not arbitrary though: it is
+the closed-form $\dw^{*}$ from the inverse Hessian. That suggests the theorem might extend by
+carrying the update through the per-layer error term rather than by treating it as unmodelled noise.
+Speculative, and whether the assumptions survive has not been checked.
+
+\paragraph{PECNET as a baseline on local data. Inferred, from the poster session.} The personal
+notes record an intention to test the PECNET framework from poster B20 of
+the poster session against a dataset of the note-taker's own. That is a concrete and cheap
+experiment, listed here so that it is not lost.
+
+\begin{aside}
+One direction is deliberately omitted: anything derived from the topic of poster B34, Atomic Action
+Slicing. Proposing directions for that project on the basis of lecture notes and a poster title alone
+would be guesswork.
+\end{aside}

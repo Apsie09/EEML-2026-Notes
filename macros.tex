@@ -1,0 +1,119 @@
+% Notation used throughout. Defined once; every chapter draws from here.
+
+% === sets and spaces ===
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Rd}[1][d]{\mathbb{R}^{#1}}
+\newcommand{\Sph}{\mathbb{S}}
+\newcommand{\dom}{\mathcal{X}}
+\newcommand{\lab}{\mathcal{Y}}
+\newcommand{\Hil}{\mathcal{H}}
+
+% === probability ===
+\DeclareMathOperator*{\Ex}{\mathbb{E}}
+\DeclareMathOperator*{\Var}{Var}
+\DeclareMathOperator*{\Cov}{Cov}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\given}{\,|\,}
+\newcommand{\dist}{\sim}
+\newcommand{\KL}[2]{D_{\mathrm{KL}}\!\left(#1 \,\|\, #2\right)}
+\newcommand{\Normal}{\mathcal{N}}
+\newcommand{\Unif}{\mathrm{Unif}}
+\newcommand{\pdata}{p_{\mathrm{data}}}
+\newcommand{\MSE}{\mathrm{MSE}}
+\newcommand{\bias}{\mathrm{bias}}
+
+% === linear algebra and calculus ===
+\newcommand{\T}{^{\mathsf{T}}}
+\newcommand{\inv}{^{-1}}
+\newcommand{\grad}{\nabla}
+\newcommand{\Hess}{\mathbf{H}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\inner}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\id}{\mathbf{I}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spn}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+
+% === learning ===
+\newcommand{\params}{\theta}
+\newcommand{\wt}{\vect{w}}
+\newcommand{\xin}{\vect{x}}
+\newcommand{\yout}{\vect{y}}
+\newcommand{\Loss}{\mathcal{L}}
+\newcommand{\risk}{\mathcal{R}}
+\newcommand{\net}{f_{\params}}
+\newcommand{\lr}{\eta}
+\newcommand{\est}[1]{\widehat{#1}}
+\newcommand{\sigmoid}{\sigma}
+
+% === representations, alignment (Isola) ===
+\newcommand{\rep}{\phi}
+\newcommand{\repB}{\psi}
+\newcommand{\kernel}{K}
+\newcommand{\CKA}{\mathrm{CKA}}
+\newcommand{\Hcent}{\mathbf{H}}   % centring matrix
+\newcommand{\simfn}{s}
+
+% === diffusion (Dieleman) ===
+\newcommand{\xz}{\vect{x}_0}
+\newcommand{\xt}{\vect{x}_t}
+\newcommand{\eps}{\boldsymbol{\varepsilon}}
+\newcommand{\epsnet}{\eps_{\params}}
+\newcommand{\snr}{\mathrm{SNR}}
+\newcommand{\score}{\grad_{\xt} \log p_t(\xt)}
+\newcommand{\guide}{w}
+
+% === reinforcement learning (Deac) ===
+\newcommand{\st}{s_t}
+\newcommand{\at}{a_t}
+\newcommand{\rt}{r_t}
+\newcommand{\States}{\mathcal{S}}
+\newcommand{\Actions}{\mathcal{A}}
+\newcommand{\Trans}{P}
+\newcommand{\Rew}{R}
+\newcommand{\disc}{\gamma}
+\newcommand{\pol}{\pi_{\params}}
+\newcommand{\traj}{\tau}
+\newcommand{\ret}{G}
+\newcommand{\Vf}{V}
+\newcommand{\Qf}{Q}
+\newcommand{\Adv}{A}
+\newcommand{\obj}{J}
+
+% === geometric deep learning (Velickovic) ===
+\newcommand{\Grp}{\mathfrak{G}}
+\newcommand{\grp}{\mathfrak{g}}
+\newcommand{\Om}{\Omega}
+\newcommand{\Sig}{\mathcal{X}}
+\newcommand{\gact}[2]{#1 \cdot #2}
+\newcommand{\nbr}[1]{\mathcal{N}_{#1}}
+\newcommand{\msg}{\psi}
+\newcommand{\upd}{\phi}
+\newcommand{\agg}{\bigoplus}
+
+% === graph signal processing (Stankovic) ===
+\newcommand{\Adj}{\mathbf{A}}
+\newcommand{\Lap}{\mathbf{L}}
+\newcommand{\GFT}{\mathrm{GFT}}
+\newcommand{\eig}{\lambda}
+\newcommand{\Vmat}{\mathbf{V}}
+\newcommand{\Lam}{\boldsymbol{\Lambda}}
+\newcommand{\gsig}{\vect{x}}
+\newcommand{\azp}{\Adj_{\mathrm{ZP}}}
+
+% === quantization (Alistarh) ===
+\newcommand{\quant}{Q}
+\newcommand{\dw}{\delta\wt}
+\newcommand{\PPL}{\mathrm{PPL}}
+
+% === continual learning (Lyle, Pascanu) ===
+\newcommand{\task}{\mathcal{T}}
+\newcommand{\plast}{\kappa}

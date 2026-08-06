@@ -1,0 +1,93 @@
+\chapter{Worth Revisiting}
+\label{ch:revisit}
+
+An ordered queue, ranked by estimated value per hour spent. Each entry gives a reason and a pointer.
+
+\section*{Highest priority}
+
+\begin{enumerate}
+\item \textbf{The 4-bit failure in the quantization tutorial}, the section headed 8-bit RTN.
+  \emph{Reason:} the fastest route to making Alistarh's inverse-Hessian derivation feel necessary
+  rather than decorative, since naive rounding visibly destroys a model that 8-bit rounding leaves
+  intact. Chapter~\ref{ch:10-efficient-learning} supplies the theory immediately afterwards.
+
+\item \textbf{The Golden Gate steering exercises}, numbers 9 to 11 of the mechanistic
+  interpretability tutorial. \emph{Reason:} activation steering end to end in three exercises, and the one technique from the
+  week that transfers to any model already wrapped in TransformerLens.
+
+\item \textbf{The two lectures on training networks online.}
+  Chapter~\ref{ch:06-continual-learning}, then Chapter~\ref{ch:07-to-be-figured-out}.
+  \emph{Reason:} the personal notes flag this explicitly as a goal, and the two lectures that
+  address it disagree. Lyle's mechanism first, then Pascanu's objection. Lyle's deflationary point,
+  that storing the data resolves the easier half outright, settles more cases than expected.
+
+\item \textbf{Dieleman's spectral autoregression post.}
+  \url{https://sander.ai/2023/07/20/perspectives.html}.
+  \emph{Reason:} the slide version, Figure~\ref{fig:diffusion-models-3}, compresses the argument
+  into four panels. The post carries the derivation, and it is the single most reusable idea from
+  the diffusion lecture.
+
+\item \textbf{The PPO and GRPO implementations}, Part~2 of the reinforcement learning tutorial.
+  \emph{Reason:} PPO is built with a critic, at full memory cost, and GRPO then removes it in a few
+  lines. That ordering is what makes GRPO's appeal legible, and it is the current default for
+  language-model post-training.
+\end{enumerate}
+
+\section*{Second tier}
+
+\begin{enumerate}\setcounter{enumi}{5}
+\item \textbf{The Kazhdan--Lusztig experiment.}~\citep{davies2021}, and
+  Chapter~\ref{ch:08-ml-for-mathematics}.
+  \emph{Reason:} the cleanest available example of attribution output becoming a mathematical
+  statement, and a usable template for making a model's internals legible enough to constitute a
+  claim.
+
+\item \textbf{The linear recurrent unit derivation, all six steps.}
+  \citet{orvieto2023}, and Chapter~\ref{ch:07-to-be-figured-out}.
+  \emph{Reason:} an ablation dressed as an architecture, whose negative results are the substance:
+  HiPPO is unnecessary, continuous time is unnecessary, and complex numbers may buy nothing but
+  compactness. Preferable to a Mamba explainer as a first reading on state space models.
+
+\item \textbf{CKA and the invariance argument around it.}~\citep{kornblith2019}, and
+  Chapter~\ref{ch:02-representational-geometry}.
+  \emph{Reason:} a small formula with a large amount of thinking behind it. The transferable habit
+  is to ask, of any similarity measure, which transformations it has been built to ignore.
+
+\item \textbf{PECNET as a baseline.} Poster B20 of the poster session.
+  \emph{Reason:} recorded in the personal notes as a specific thing to try on specific data. The
+  only entry in this queue that is an experiment rather than a reading, and therefore the one most
+  likely to decay if deferred.
+
+\item \textbf{The eight-episode TD versus Monte Carlo exercise.} Slides 37 to 39 of the
+  reinforcement learning deck, and Chapter~\ref{ch:04-intro-reinforcement-learning}.
+  \emph{Reason:} five minutes with pen and paper, and it permanently fixes the difference between
+  fitting observed data and fitting the model that data implies. Best attempted before reading the
+  answer.
+\end{enumerate}
+
+\section*{Lower priority, but not to be lost}
+
+\begin{enumerate}\setcounter{enumi}{10}
+\item \textbf{Cho's computational identifiability.} Chapter~\ref{ch:05-statistics-estimation}, final
+  section, and~\citet{bynum2026identifiability}. \emph{Reason:} the most conceptually novel material
+  of the week, and the one idea from the summer school most likely to change how a problem is framed
+  rather than how it is solved.
+
+\item \textbf{Zero-padding applied to causal attention.}
+  Chapter~\ref{ch:09-spectral-analysis-dags}, together with the inferred direction in
+  Chapter~\ref{ch:research-directions}. \emph{Reason:} possibly nothing, possibly a paper. Cheap to
+  sanity-check on a small causal mask before committing effort.
+
+\item \textbf{Geometric deep learning mathematical prerequisites.} Recorded in the personal notes as
+  \url{https://arxiv.org/abs/2508.02723}, with the course at
+  \url{https://geometricdeeplearning.com}. \emph{Reason:} required for the derivations, not for
+  applying the four Gs. Worth the time only if the intent is to derive an architecture rather than
+  use one.
+\end{enumerate}
+
+\begin{aside}
+Two items from the personal notes are absent from this queue because they were resolved during the
+write-up. The AlphaFold 2 gauge slide whose image attachment is missing from disk is recovered as
+Figure~\ref{fig:geometric-deep-learning-4}, extracted from the deck. And the Liverpool corner-kick
+result is TacticAI, Figure~\ref{fig:geometric-deep-learning-3} and~\citet{wang2024tacticai}.
+\end{aside}

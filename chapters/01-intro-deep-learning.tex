@@ -1,0 +1,167 @@
+\chapter{Introduction to Deep Learning}
+\label{ch:01-intro-deep-learning}
+
+\lecturemeta{Sarath Chandar}{Polytechnique Montr\'{e}al and Mila}
+
+The lecture is organised around a single asymmetry: we have known since the early 1990s
+what a neural network \emph{can} represent, and we still do not know what we can reliably
+\emph{train}. Chandar spends the first half establishing the representational result, the
+universal approximation theorem, in order to set it aside, and the second half on the
+obstructions that survive it: gradients that vanish through depth, initialisations that
+decide whether a network trains at all, and finally the independence assumption buried in
+every objective on the slides. The closing frame is the argument of the whole summer school
+in one line: current practice optimises the i.i.d.\ case, while ``true learning'' is
+sequential, online and continual.
+
+\section*{Key ideas}
+
+\paragraph{The gradient that cancels.} The derivation that opens the lecture is a single
+sigmoid unit, $y^{(n)} = \sigmoid(a^{(n)})$ with $a^{(n)} = \wt\T\xin^{(n)}$, trained on
+the cross-entropy objective
+\[
+  \min_{\wt} \; -\sum_{n=1}^{N} \Bigl[ t^{(n)} \ln y^{(n)}
+    + \bigl(1 - t^{(n)}\bigr) \ln\bigl(1 - y^{(n)}\bigr) \Bigr],
+  \qquad
+  \frac{\partial \mathrm{obj}}{\partial \wt}
+   = \sum_{n=1}^{N} \frac{\partial \mathrm{obj}}{\partial y^{(n)}}
+     \frac{\partial y^{(n)}}{\partial a^{(n)}}
+     \frac{\partial a^{(n)}}{\partial \wt}.
+\]
+\noindent Worked factor by factor, the objective contributes
+$\partial \mathrm{obj} / \partial y^{(n)} = (y^{(n)} - t^{(n)}) / (y^{(n)}(1 - y^{(n)}))$,
+the unit contributes $\partial y^{(n)} / \partial a^{(n)} = y^{(n)}(1 - y^{(n)})$, and the
+pre-activation contributes $\partial a^{(n)} / \partial \wt = \xin^{(n)}$. The awkward
+denominator is exactly the sigmoid derivative, so the two cancel, as the board shows by
+striking them out, and each term of the sum collapses to
+\[
+  \bigl(y^{(n)} - t^{(n)}\bigr)\xin^{(n)}.
+\]
+\noindent Residual times input. The cancellation is the point: it is why this pairing of
+output unit and loss is the one everybody uses, and it is the atom that backpropagation
+chains.
+
+\paragraph{Backpropagation has a messy provenance.} The slides are unusually careful here, and they
+begin further back than most treatments: the perceptron in 1957~\citep{rosenblatt1958}, logistic
+regression in 1958~\citep{cox1958}, and the XOR counterexample in 1969~\citep{minsky1969}.
+Backpropagation was then popularised by Rumelhart, Hinton and Williams in
+1986~\citep{rumelhart1986}, but Werbos had it in 1974~\citep{werbos1974}, and the slide
+states flatly that it ``has been reinvented several times before 1986'', pointing at
+Schmidhuber's history page~\citep{schmidhuber2014backprop}. What actually changed the field
+was not the rule but the tooling, and Chandar gives the timeline: Torch (2002), Theano
+(2007 to 2008), Caffe (2013), TensorFlow (2015), PyTorch (2016) and JAX (2018). Automatic
+differentiation, not the chain rule, is the enabling technology.
+
+\paragraph{Expressivity is settled.} The universal approximation theorem is quoted as
+Hornik, 1991~\citep{hornik1991}: a single hidden layer network with a linear output unit can
+approximate any continuous function arbitrarily well, \emph{given enough hidden units}. On
+the slide the final clause is highlighted and braced, and underneath, in red, sits the
+phrase that reframes everything after it: \textbf{expressivity versus learnability}. One
+hidden layer suffices in principle, which is precisely why the rest of the lecture is about
+optimisation rather than architecture.
+
+\paragraph{Learnability is not.} Depth turns the chain rule into a product of Jacobians,
+\[
+  \frac{\partial E}{\partial \mat{W}^{(T)}}
+   = \frac{\partial E}{\partial \yout}\,
+     \frac{\partial \yout}{\partial \vect{h}_T}
+     \underbrace{\left[
+       \frac{\partial \vect{h}_T}{\partial \vect{h}_{T-1}}
+       \frac{\partial \vect{h}_{T-1}}{\partial \vect{h}_{T-2}} \cdots
+       \frac{\partial \vect{h}_2}{\partial \vect{h}_1}
+     \right]}_{\text{vanishing gradient problem}},
+\]
+\noindent and the bracket is boxed on the board. The historical answer was to avoid
+training the depth all at once: greedy layerwise pretraining~\citep{hinton2006, bengio2007},
+in which each layer is fitted as an autoencoder before the stack is finetuned end to end
+(Figure~\ref{fig:intro-deep-learning-1}). The modern answer is quieter and lives in the
+activation function, where the lecture records
+$\mathrm{Swish}(x) = x\,\sigmoid(x)$~\citep{ramachandran2017} and
+$\mathrm{SwiGLU}(x) = \mathrm{Swish}(x\mat{W}) \otimes x\mat{V}$~\citep{shazeer2020}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  x=1cm, y=1cm, font=\small,
+  box/.style={draw, rounded corners=1pt, minimum height=8mm, minimum width=7mm,
+              inner sep=1pt, fill=white},
+  hid/.style={box, fill=asidebg},
+  ar/.style={-{Latex[length=1.6mm]}, shorten >=1pt, shorten <=1pt}]
+
+  \node[box] (x1) at (0,0) {$\xin$};
+  \node[hid] (h1) at (1.6,0) {$\vect{h}_1$};
+  \node[box] (xr) at (3.2,0) {$\est{\xin}$};
+  \draw[ar] (x1) -- node[above,font=\scriptsize] {$\mat{W}^{(1)}$} (h1);
+  \draw[ar] (h1) -- node[above,font=\scriptsize] {$\mat{W}^{(1)\mathsf{T}}$} (xr);
+  \node[font=\scriptsize, align=center] at (1.6,-1.05)
+    {train layer 1 as an autoencoder,\\ reconstructing the input};
+
+  \node[box] (x2) at (6.3,0) {$\xin$};
+  \node[hid] (h1b) at (7.9,0) {$\vect{h}_1$};
+  \node[hid] (h2) at (9.5,0) {$\vect{h}_2$};
+  \node[box] (hr) at (11.1,0) {$\est{\vect{h}}_1$};
+  \draw[ar] (x2) -- (h1b);
+  \draw[ar] (h1b) -- node[above,font=\scriptsize] {$\mat{W}^{(2)}$} (h2);
+  \draw[ar] (h2) -- (hr);
+  \node[font=\scriptsize, align=center] at (8.7,-1.05)
+    {repeat upward: each new layer\\ reconstructs the one below};
+
+  \node[box] (x3) at (2.2,-3.0) {$\xin$};
+  \node[hid] (s1) at (3.8,-3.0) {$\vect{h}_1$};
+  \node[hid] (s2) at (5.4,-3.0) {$\vect{h}_2$};
+  \node (dots) at (6.7,-3.0) {$\cdots$};
+  \node[hid] (sL) at (8.0,-3.0) {$\vect{h}_L$};
+  \node[box] (y3) at (9.6,-3.0) {$\yout$};
+  \draw[ar] (x3) -- (s1); \draw[ar] (s1) -- (s2); \draw[ar] (s2) -- (dots);
+  \draw[ar] (dots) -- (sL); \draw[ar] (sL) -- (y3);
+  \draw[decorate, decoration={brace, amplitude=4pt, mirror}]
+    (1.75,-3.6) -- (10.05,-3.6)
+    node[midway, below, yshift=-3pt, font=\scriptsize] {supervised finetuning};
+\end{tikzpicture}
+\caption{Greedy layerwise pretraining as drawn in the Introduction to Deep Learning
+lecture. Each layer is first trained to reconstruct the representation below it, so no
+gradient ever has to travel the full depth, and only then is the assembled stack finetuned
+against labels. Redrawn from photographs of the board.}
+\label{fig:intro-deep-learning-1}
+\end{figure}
+
+\paragraph{Initialisation decides trainability.} The lottery ticket
+hypothesis~\citep{frankle2019} is quoted verbatim: dense, randomly initialised feed-forward
+networks contain subnetworks, ``winning tickets'', that when trained in isolation reach test
+accuracy comparable to the original network in a similar number of iterations. Placed here,
+immediately after the vanishing-gradient material, it reads as a statement about
+optimisation rather than about compression: most of the network is scaffolding for finding a
+subnetwork the gradient can actually move.
+
+\paragraph{The i.i.d.\ assumption is the frontier.} The penultimate slide is four lines.
+Current focus: i.i.d.\ learning. True learning: non-i.i.d., namely sequential, online and
+continual. Nothing follows it except a pointer to Mark Schmidt's optimisation tutorial at
+ICML 2026. The lecture ends by naming its own limitation.
+
+\section*{Notation}
+
+Superscript $(n)$ indexes training examples, so $t^{(n)}$ is the target and $y^{(n)}$ the
+prediction for example $n$. Layer index is a superscript in parentheses on weight matrices,
+$\mat{W}^{(\ell)}$, and a subscript on activations, $\vect{h}_\ell$. This convention
+holds for later chapters, with one difference worth flagging now:
+Chandar writes the objective as an average over $N$ examples with an explicit minus sign,
+whereas Cho (Chapter~\ref{ch:05-statistics-estimation}) works with expectations under a
+population distribution. The quantities are the same; the framing differs.
+
+\section*{Why it matters}
+
+This chapter is the hinge for three later ones. The non-i.i.d.\ closing slide is picked up
+directly by Lyle on continual learning (Chapter~\ref{ch:06-continual-learning}), who turns
+``sequential, online, continual'' into two concrete failure modes, and by Pascanu
+(Chapter~\ref{ch:07-to-be-figured-out}), who argues that the i.i.d.\ assumption is what
+makes gradient-based credit assignment work at all. The lottery ticket hypothesis reappears
+in Alistarh's history of compression (Chapter~\ref{ch:10-efficient-learning}), filed under
+pruning rather than optimisation, which is a real difference of emphasis between two
+speakers citing one paper.
+
+\begin{aside}
+The two readings of lottery tickets are worth holding apart. Chandar places the result among
+answers to ``how do we train deep networks'', making it a claim about which initialisations
+admit a trainable path. Alistarh places it in the ``Age of Discovery'' of model compression,
+making it a claim about how much of a trained network is redundant. The paper supports both,
+but they suggest different experiments.
+\end{aside}

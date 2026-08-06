@@ -1,0 +1,19 @@
+# Private companion document: poster session notes, not for publication.
+private/
+
+# Internal provenance and coverage record, kept local.
+COVERAGE.md
+
+# LaTeX build products
+*.aux
+*.bbl
+*.bbl-SAVE-ERROR
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.toc
+*.synctex.gz

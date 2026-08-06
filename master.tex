@@ -1,0 +1,46 @@
+\documentclass[11pt,a4paper,oneside,openany]{memoir}
+
+\usepackage{preamble}
+\input{macros}
+
+\addbibresource{refs.bib}
+
+\title{\Huge EEML 2026\\[4pt] \Large Lecture Notes}
+\author{Asen Popov}
+\date{Cetinje, Montenegro \\ 27 July to 1 August 2026}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+
+\begin{KeepFromToc}
+\tableofcontents
+\end{KeepFromToc}
+
+\mainmatter
+
+\include{chapters/00-overview}
+
+\part{Lectures}
+\include{chapters/01-intro-deep-learning}
+\include{chapters/02-representational-geometry}
+\include{chapters/03-diffusion-models}
+\include{chapters/04-intro-reinforcement-learning}
+\include{chapters/05-statistics-estimation}
+\include{chapters/06-continual-learning}
+\include{chapters/07-to-be-figured-out}
+\include{chapters/08-ml-for-mathematics}
+\include{chapters/09-spectral-analysis-dags}
+\include{chapters/10-efficient-learning}
+\include{chapters/11-geometric-deep-learning}
+
+\part{Synthesis}
+\include{synthesis/themes}
+\include{synthesis/research-directions}
+\include{synthesis/revisit}
+
+\backmatter
+\printbibliography[heading=bibintoc,title={References}]
+
+\end{document}
