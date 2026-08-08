@@ -9,8 +9,8 @@ from taking that seriously. If two networks encode the same distances in differe
 are the same representation for practical purposes, so the right way to compare them is to
 compare kernels. Once comparison is on that footing an empirical claim becomes measurable:
 strong models trained on different data and different modalities are converging on one
-kernel, and human perceptual judgements sit close to it. The lecture ends by turning this
-from an observation into an engineering target, with the costs of doing so stated honestly.
+kernel, and human perceptual judgements sit close to it. The lecture ends by turning this from an
+observation into an engineering target, and states what that costs.
 
 \section*{Key ideas}
 
@@ -135,17 +135,14 @@ is not merely a practical worry but true in theory.
 
 \section*{Notation}
 
-$\rep$ and $\repB$ denote representations, $z = \rep(\xin)$ an embedding, $Z$ a point cloud
-over a dataset, $h$ a map fitted between two embeddings, $\kernel$ a kernel matrix and $\Hcent$ the
-centring matrix. One clash to
-watch: $\Hcent$ here is a centring matrix, whereas
-Chapter~\ref{ch:10-efficient-learning} uses $\Hess$ for a Hessian. Both follow their speaker's
-usage and are kept visually distinct throughout.
+$\rep$ and $\repB$ denote representations, $z = \rep(\xin)$ an embedding, $Z$ a point cloud over a
+dataset, $h$ a map fitted between two embeddings, $\kernel$ a kernel matrix and $\Hcent$ the centring
+matrix.
 
 \section*{Why it matters}
 
 This is the lecture the personal notes cover in most detail, and it connects outward more than any
-other. The claim that distance is the only thing worth preserving is the same
+other. The claim that distance is the only thing to preserve is the same
 instinct that drives geometric deep learning
 (Chapter~\ref{ch:11-geometric-deep-learning}), where invariance is imposed by construction
 rather than measured after the fact. The convergence story is a counterpoint to Cho on
@@ -160,6 +157,5 @@ Isola's stronger claim, recorded in the personal notes rather than on the slides
 there is ``no future for distance functions that are not learned''. That sits in tension with
 the argument of the lecture, which uses fixed metrics such as CKA to establish convergence.
 If the yardstick is itself fitted to the objects being measured, the finding that models
-converge becomes harder to state without circularity. Worth settling before leaning on
-either claim.
+converge becomes harder to state without circularity.
 \end{aside}

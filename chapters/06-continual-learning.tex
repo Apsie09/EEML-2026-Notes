@@ -17,10 +17,8 @@ mundane fixes.
 
 \paragraph{Two problems and a meta-problem.} Problem one is remembering the
 past~\citep{kirkpatrick2017}. Problem two is retaining plasticity, the capacity to keep
-learning at all. The meta-problem is evaluation, and the lecture is candid that neither option
-is satisfactory: train on a pre-specified sequence of tasks, which is artificial, or find an
-application that is naturally continual, which is uncontrolled. That tension is worth keeping
-in mind whenever a continual-learning result is quoted.
+learning at all. The meta-problem is evaluation, and neither option is satisfactory: train on a pre-specified sequence of tasks, which is artificial, or find an
+application that is naturally continual, which is uncontrolled. That tension sits under every result in the field.
 
 \begin{figure}[htbp]
 \centering
@@ -33,21 +31,18 @@ out of the old one.}
 \label{fig:continual-learning-2}
 \end{figure}
 
-\paragraph{Forgetting is gradient conflict, and the fixes follow from that.} The intuition
-given is geometric and is worth looking at directly
+\paragraph{Forgetting is gradient conflict, and the fixes follow from that.} The intuition given is geometric
 (Figure~\ref{fig:continual-learning-2}): gradients on different tasks often conflict, so a step
 that helps task two moves parameters out of the region that solved task one. Three families of solution follow
 directly from the diagnosis, and the lecture states them in plain terms before naming any
 method. Do not change the parameters used for the old task too much, which is regularisation
 and, with a different mechanism, sparsity and network expansion. Keep the old data around and
 keep training on it, which is replay. Or periodically reset the model and retrain on
-everything, which pairs with distillation. Lyle's practical verdict is blunt and appears again
-in the summary: if the data can be kept, the first problem is easy. Only under a memory constraint
+everything, which pairs with distillation. Lyle's practical verdict appears again in the summary: if the data can be kept, the first problem is easy. Only under a memory constraint
 does it require finesse.
 
-\paragraph{Loss of plasticity has a mechanism, and it is the optimiser.} This is the most
-valuable part of the lecture because it is a causal chain rather than a phenomenon. Under
-repeated task changes networks become less trainable over time, in the extreme case with dead
+\paragraph{Loss of plasticity has a mechanism, and it is the optimiser.} Under repeated task
+changes networks become less trainable over time, in the extreme case with dead
 ReLUs and a model emitting a uniform distribution. Two causes are separated. First, gradual
 convergence toward bad parameters, diagnosed through the empirical NTK matrix at convergence.
 Second, and more surprising, destructive updates that happen almost immediately after a task
@@ -92,7 +87,7 @@ passing gradient, which is what ``the ReLUs are dead'' means in practice.}
 \label{fig:continual-learning-3}
 \end{figure}
 
-\paragraph{The fixes are boring, which is the point.} What Lyle calls the swiss cheese approach
+\paragraph{The fixes are boring.} What Lyle calls the swiss cheese approach
 is three complementary interventions: control parameter norm growth, normalise preactivations,
 and avoid regressing on ill-conditioned targets. The lesson is stated as use normalisation
 layers and do not let parameters get too big. With these in place continual training stabilises
@@ -126,7 +121,7 @@ distilling remains available as a fallback.
 The personal notes single out ``catastrophic forgetting'' as the takeaway and ask how to train
 networks online. Lyle's answer, read carefully, is partly deflationary: where the data can be
 stored, storing it is the right move, and the interesting problem only begins under a memory
-constraint. That distinction is worth settling for any given project before reaching for a
-continual-learning method, since the literature is largely written for the constrained case and
-most applications are not in it.
+constraint. Which regime a project is in decides whether the literature
+applies at all, since it is largely written for the constrained case and most applications are
+not.
 \end{aside}

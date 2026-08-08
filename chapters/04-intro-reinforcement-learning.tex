@@ -29,8 +29,7 @@ $\ret_t = \sum_{k \ge 0} \disc^{k} r_{t+k}$, and the objective is
 $\obj(\params) = \Ex_{\traj \dist \pol}[\ret(\traj)]$. The deck's own reference slide points
 at Sutton and Barto for all of this~\citep{sutton2018}.
 
-The motivation for $\disc$ is the best in the whole set of lectures because it is
-arithmetic rather than assertion. Three gridworld trajectories score 99, 100 and 101
+The motivation given for $\disc$ is arithmetic rather than assertion. Three gridworld trajectories score 99, 100 and 101
 undiscounted, so the greedy detour wins and nothing prevents the agent cycling through a
 $+100$ cell forever. At $\disc = 0.95$ the same three trajectories, of length 3, 7 and 9
 steps, score 89.2, 73.5 and 67.1: the short path now wins, and the infinite loop sums to
@@ -132,8 +131,6 @@ from text, so environments themselves become generatable.
 $\States, \Actions, \Trans, \Rew, \disc$ for the MDP, $\pi$ for a policy, $\traj$ for a
 trajectory, $\ret_t$ for the return, $\Vf$ and $\Qf$ for state and action values, $\Adv$ for
 the advantage, $\alpha$ for the value-update step size and $\lr$ for the policy step size.
-Here $\disc$ is unambiguously the discount factor, unlike the same Greek letter used for the
-guidance scale in Chapter~\ref{ch:03-diffusion-models}.
 
 \section*{Why it matters}
 

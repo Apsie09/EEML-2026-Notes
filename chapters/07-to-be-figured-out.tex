@@ -6,16 +6,14 @@
 \lecturemeta{Razvan Pascanu}{Mila and Google DeepMind}
 
 The folder holding this deck is untitled on disk; the title above is the deck's own, and it is
-accurate, because the lecture is a survey of open problems rather than a result. Its spine is
+accurate, because the lecture is a survey of open problems, not a result. Its spine is
 an argument about inductive bias: there is no prior-free machine learning system, every choice
 in building one is a bias, and the useful question is therefore not whether to have biases but
 which ones buy the most. Pascanu develops that in three registers. Conceptually, the i.i.d.\
-assumption is itself a load-bearing bias, because gradient descent resolves credit assignment
+assumption is itself a bias doing hidden work, because gradient descent resolves credit assignment
 by a tug-of-war between examples and that only works when the data is shuffled. Structurally,
-depth and architecture are biases with quantifiable payoffs. Practically, state space
-models and the linear recurrent unit are a worked example of buying capability from structure
-rather than from scale, and the lecture is unusually honest that at scale most of the advantage
-evaporates into a hybrid.
+depth and architecture are biases with quantifiable payoffs. Practically, state space models and the
+linear recurrent unit buy capability from structure instead of scale, and by the end most of that advantage has evaporated into a hybrid.
 
 \section*{Key ideas}
 
@@ -32,10 +30,9 @@ decompose problems into tractable subproblems the way people do, sacrificing per
 efficiency. Pascanu's hypothesis is that trade-offs are necessary and that limitations should
 be exploited to shape the loss surface.
 
-\paragraph{The i.i.d.\ assumption is doing hidden work.} This is the sharpest claim in the
-lecture. Gradient-based credit assignment inside a function approximator proceeds by
-tug-of-war dynamics between competing examples, which requires the data to be i.i.d. Two
-consequences are offered as hypotheses rather than facts: there is no explicit knowledge
+\paragraph{The i.i.d.\ assumption is doing hidden work.} Gradient-based credit assignment inside a
+function approximator proceeds by
+tug-of-war dynamics between competing examples, which requires the data to be i.i.d. Two consequences are offered as hypotheses, not facts: there is no explicit knowledge
 composition, and scale becomes a crutch that makes learning possible at all. Failure of credit
 assignment is then what catastrophic forgetting \emph{is}, rather than a separate phenomenon.
 The natural inference, that curricula should therefore help, does not survive
@@ -54,7 +51,7 @@ lecture is deflationary about the folklore. High-dimensional non-convex loss sur
 dominated by saddles rather than bad minima~\citep{dauphin2014}, so the deep learning myth,
 that networks can be dropped in anywhere and optimisation behaves as if convex, holds only if
 the right protocol is used. Initialisation and the choice of optimiser qualitatively alter which
-solution is reached, which Pascanu argues should be leveraged rather than treated as
+solution is reached, which Pascanu argues should be leveraged instead of treated as
 nuisance; and a loss surface of sufficient dimension contains every low-dimensional
 pattern~\citep{czarnecki2019}, which is a warning about reading too much into loss-landscape
 visualisations.
@@ -80,7 +77,7 @@ relies on a deterministic HiPPO initialisation, and is then discretised; the pay
 discretised system can be read either as a recurrence, which makes inference fast, or as a
 convolution, which makes training fast. That dual view is the whole appeal.
 
-His objection is methodological rather than empirical. There are many variants (S4~\citep{gu2022s4},
+His objection is methodological, not empirical. There are many variants (S4~\citep{gu2022s4},
 S4D, H3, Mamba~\citep{gu2023mamba}), several discretisation schemes such as bilinear and
 zero-order hold, it is unclear how changes to the surrounding block interact with the SSM's
 parameterisation, and for the better-performing SSMs the continuous-time story becomes
@@ -94,7 +91,7 @@ simple. Remove the nonlinearity from the recurrence, which costs less than expec
 RNNs followed by nonlinear projections can approximate any finite sequence-to-sequence map, with
 the linear recurrence compressing the sequence and the MLP approximating the decompressor. The
 caveat is stated, that this construction can only exhibit fading memory. Linearity then permits
-diagonalisation, so one learns a complex diagonal $\Lam$ directly and the recurrent computation
+diagonalisation, so a complex diagonal $\Lam$ is learned directly and the recurrent computation
 collapses, and stability becomes a statement about eigenvalues: inside the unit disk gives
 exponentially decaying sine waves, outside is unstable. Vanishing gradients are the mirror
 image, since eigenvalues near the origin decay within a few steps, so initialisation samples an
@@ -123,7 +120,7 @@ $r_{\min} = 0.4$, $r_{\max} = 0.9$; the values recommended in practice are $0.9$
 \label{fig:to-be-figured-out-1}
 \end{figure}
 
-\paragraph{The honest scorecard, and the hybrid that actually wins.} Having built the case,
+\paragraph{The scorecard, and the hybrid that actually wins.} Having built the case,
 Pascanu reports that pure recurrence does not straightforwardly win. On language S4D did not work
 out of the box and an LSTM was better; gating it helped. What does work is a hybrid, and the
 reasoning is that SSMs and linear attention share the two properties that matter, a finite state
@@ -177,6 +174,6 @@ statistics view that firing a linguist improves the recogniser. Set against
 Chapter~\ref{ch:05-statistics-estimation}, where Cho argues for learning the estimator rather
 than modelling the process, the two speakers are making the same argument from different ends:
 Cho says the generative process need not be modelled, Pascanu says some prior about it is
-unavoidable. Both are right, and the interesting question is which biases are cheap to state and
-expensive to learn. That is a serviceable filter for research ideas.
+unavoidable. Both are right, and what is left over is the question of which biases are cheap to
+state and expensive to learn.
 \end{aside}

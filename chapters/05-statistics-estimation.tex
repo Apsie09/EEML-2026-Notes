@@ -3,8 +3,8 @@
 
 \lecturemeta{Kyunghyun Cho}{New York University}
 
-Cho's lecture has one thesis, stated plainly two-thirds of the way through and worth quoting
-because it reorganises a great deal of statistics: inference does not have to be about
+Cho's lecture has one thesis, stated two-thirds of the way through, and it reorganises a great
+deal of statistics: inference does not have to be about
 inverting the generative process. The conventional route to any estimand is to model the data
 generating distribution and then invert it, and the lecture's claim is that this step is
 optional. Given the ability to sample problems with known answers, estimator design becomes a
@@ -93,7 +93,8 @@ algorithm. The procedure is explicit. Take a causal query; define a prior over s
 causal models combining given and simulated distributions; define a hypothesis space
 reachable by the chosen optimiser; search for the best estimator; and if it is accurate for most of
 the sampled SCMs, declare the query identifiable. Unlike the mathematical version this is
-soft, so one can compute $p(\text{identifiable} \given \varepsilon)$ and plot it as a curve.
+soft, so $p(\text{identifiable} \given \varepsilon)$ becomes a quantity that can be computed and
+plotted as a curve.
 
 \section*{Notation}
 
@@ -105,8 +106,7 @@ standard in their fields and neither is changed.
 
 \section*{Why it matters}
 
-This is the most quietly radical lecture of the week, and it cuts against
-Chapter~\ref{ch:02-representational-geometry} in a way worth noticing. Isola measures whether
+This lecture cuts against Chapter~\ref{ch:02-representational-geometry}. Isola measures whether
 learned representations agree, using fixed metrics as the yardstick; Cho's programme suggests
 the yardstick itself should be learned, which is the same instinct as Isola's own remark that
 there is no future for unlearned distance functions. Read together they point at a world where
@@ -116,7 +116,7 @@ prior over problems. The bias-variance material also connects to Alistarh's line
 than measure it.
 
 \begin{aside}
-The load-bearing assumption is easy to miss because the examples are so clean. Every learned
+The assumption underneath all of this is easy to miss because the examples are so clean. Every learned
 estimator here is only as good as the meta-distribution $P_\Gamma$ it was trained over, and
 for the standard-deviation example we can write that prior down honestly. For causal queries
 we cannot, which is precisely why computational identifiability is defined relative to a

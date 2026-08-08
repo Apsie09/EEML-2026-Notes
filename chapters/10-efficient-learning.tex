@@ -24,8 +24,8 @@ model sizes: Llama-4 Maverick at 400 billion total parameters, 800 GB at half pr
 billion active across 128 experts, trained on 22 trillion tokens for about 6 million GPU hours.
 The lecture also puts a cost on inference rather than training, quoting a Google study from
 August 2025: a median generative query consumes 0.24 Wh, 0.03 g of CO$_2$e, described as nine
-seconds of television, and 0.26 mL of water, five drops. The caveats are given honestly, that
-medians hide heavy prompts and that market-based carbon accounting undercounts location-based.
+seconds of television, and 0.26 mL of water, five drops. Two caveats come with it: medians hide heavy prompts, and
+market-based carbon accounting undercounts location-based.
 
 \begin{figure}[htbp]
 \centering
@@ -39,8 +39,8 @@ data centre in Memphis, partly gas-fuelled.}
 \label{fig:efficient-learning-1}
 \end{figure}
 
-\paragraph{The mathematics is about the loss, not the weights.} This is the load-bearing
-derivation and it is short. Quantization is just a particular weight perturbation,
+\paragraph{The mathematics is about the loss, not the weights.} Quantization is just a particular
+weight perturbation,
 $\mathrm{Compress}(\wt) = \wt + \dw$. Taylor expanding the loss,
 \[
   \Loss(\wt + \dw) \approx \Loss(\wt) + \grad_{\wt}\Loss \cdot \dw
@@ -111,9 +111,7 @@ as abundant and data movement as scarce. The lottery ticket citation is shared w
 Chapter~\ref{ch:01-intro-deep-learning} under a different interpretation, which is noted there.
 
 \begin{aside}
-The framing device deserves attention independently of the content. Alistarh takes the bitter
-lesson, which is normally deployed as an argument against clever methods, and derives from it a
-mandate for clever methods, on the grounds that if compute is what matters then compute
-efficiency is what matters. The move is available whenever a scaling argument is used to dismiss
-an idea: ask what the argument implies about the price of the resource it says is decisive.
+Alistarh takes the bitter lesson, which is normally deployed as an argument against clever
+methods, and derives from it a mandate for clever methods, on the grounds that if compute is what
+matters then compute efficiency is what matters.
 \end{aside}

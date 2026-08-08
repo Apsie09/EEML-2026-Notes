@@ -26,8 +26,8 @@ $\Grp$-equivariant when
 \noindent so applying the symmetry before $f$ is the same as applying it after. Invariance is the
 special case $\rho_2 = \mathrm{id}$. The lecture's point is that
 invariance is too strong to build with, because an invariant layer must collapse the whole input to
-a single output and thereby throws structure away; so one stacks equivariant layers and takes an
-invariant readout only at the end. Whether something is a symmetry is a property of the task, not
+a single output and thereby throws structure away. The construction is therefore a stack of
+equivariant layers with an invariant readout only at the end. Whether something is a symmetry is a property of the task, not
 of the data: rotation is a symmetry for cats versus dogs and emphatically not for digit
 recognition. Groups organise these symmetries, group actions turn them into operations on the
 domain, and representations turn the actions into matrices, with $SO(2)$ rotations and $S_3$
@@ -91,8 +91,8 @@ $\upd(\xin, (\vect{n}, d)) = \xin + \mathrm{FFN}(\vect{n}/d)$.}
 \label{fig:geometric-deep-learning-2}
 \end{figure}
 
-\paragraph{Grids give CNNs, and the derivation is the point.} A grid is a graph with more
-regularity, so one may restrict attention to the special permutations that are translations.
+\paragraph{Grids give CNNs, and the derivation is tight.} A grid is a graph with more
+regularity, which narrows the permutations that matter down to the translations.
 Collecting the parameters of a translation-equivariant linear map into a matrix forces that matrix
 to be circulant, and every circulant matrix is a convolution. The conclusion is stronger than
 motivation: all linear translation-equivariant maps on a grid are convolutions, which is why CNNs
@@ -127,9 +127,10 @@ cannot give a different answer merely because the play happened on the other sid
 embedded in space, the relevant group is $E(3)$, roto-translation and reflection, combined with
 permutation equivariance. The cheap route to guaranteed invariance is to message pass only on
 invariant quantities such as pairwise distances; vector-valued features need genuinely equivariant
-updates instead. Manifolds push this furthest. A 2D manifold is locally like $\R^2$, so one works
-in the tangent space $T_u\Om$, moves along the surface with the exponential map $\exp_u X$, and
-compares tangent vectors at different points by parallel transport $\Gamma_{u \to v}X$. Defining
+updates instead. Manifolds push this furthest. A 2D manifold is locally like $\R^2$, so the work
+happens in the tangent space $T_u\Om$, movement along the surface goes through the exponential map
+$\exp_u X$, and tangent vectors at different points are compared by parallel transport
+$\Gamma_{u \to v}X$. Defining
 convolution in the tangent space then runs into the central difficulty: the choice of gauge, the
 local frame, is entirely arbitrary, and even on a sphere no consistent global choice exists.
 Requiring gauge equivariance directly means conditioning across pairs of arbitrarily related
@@ -161,8 +162,7 @@ speakers' conventions.
 
 \section*{Why it matters}
 
-This is the most explicitly unifying lecture of the week and it retroactively organises several
-others. Cho's Set Transformer++ (Chapter~\ref{ch:05-statistics-estimation}) is a permutation
+This lecture retroactively organises several others. Cho's Set Transformer++ (Chapter~\ref{ch:05-statistics-estimation}) is a permutation
 equivariant architecture derived exactly the way this lecture prescribes, without either speaker
 citing the other. The Feynman-graph failure in
 Chapter~\ref{ch:08-ml-for-mathematics}, where $\phi^4$ graphs are 4-regular and so message passing
@@ -176,6 +176,6 @@ Two follow-ups from the personal notes belong here. The mathematical prerequisit
 separately as a long companion on the group- and representation-theoretic background, recorded in
 those notes as \url{https://arxiv.org/abs/2508.02723}, and the course home is
 \url{https://geometricdeeplearning.com}, with the MIT Press book dated 2026 on the closing slide.
-The direction of the dependency is worth noting: nothing in the four Gs requires that background in
-order to be \emph{used}, but the derivations, which are the actual content of the lecture, do.
+The dependency runs one way: nothing in the four Gs requires that background in order to be
+\emph{used}, but the derivations, which are the actual content of the lecture, do.
 \end{aside}

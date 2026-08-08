@@ -49,9 +49,8 @@ noise (Figure~\ref{fig:diffusion-models-1}),
 \noindent where $\sigma(t)$ is the noise schedule controlling the rate of corruption. The
 families differ only in $\alpha$: variance-preserving takes
 $\alpha = \sqrt{1 - \sigma^2}$, variance-exploding takes $\alpha = 1$, and rectified flow or
-flow matching takes $\alpha = 1 - \sigma$. Presenting it this way is the most useful thing
-in the lecture, because it collapses a literature that usually reads as three separate
-methods into one line with a parameter.
+flow matching takes $\alpha = 1 - \sigma$. Presented this way, a literature that usually reads as three
+separate methods collapses into one line with a parameter.
 
 \paragraph{What the network predicts is a free choice.} Since $\xt$ is a linear combination
 of $\xz$ and $\eps$, a prediction of one converts into a prediction of the other, so
@@ -86,9 +85,8 @@ classifier: predict $\est{\xz}$ and $\est{\xz}_{|c}$ from one model trained with
 dropout, take the difference $\delta$, and amplify it by $\guide$. The insight is that
 $\delta$ is itself a Bayesian classifier, so this is Bayes' rule applied twice, and it is
 less prone to adversarial examples than guiding with a real
-classifier~\citep{nichol2022glide}. Figure~\ref{fig:diffusion-models-2} is worth studying,
-because it makes clear that guidance is a geometric operation on one sampling step rather
-than a change to the model.
+classifier~\citep{nichol2022glide}. Figure~\ref{fig:diffusion-models-2} shows guidance as a geometric
+operation on one sampling step, not a change to the model.
 
 \begin{figure}[htbp]
 \centering
@@ -126,7 +124,7 @@ diffusion is approximate spectral autoregression.}
 \label{fig:diffusion-models-3}
 \end{figure}
 
-\paragraph{Where the framework strains.} Three honest limitations close the lecture.
+\paragraph{Where the framework strains.} Three limitations close the lecture.
 Distillation into fewer sampling steps requires cutting corners, and the corners are entropy
 and diversity first, then visual fidelity~\citep{dieleman2024paradox, song2023consistency}.
 Discrete data breaks the score outright, since $\grad_{\xin} \log p(\xin)$ is undefined when
@@ -141,15 +139,13 @@ community.
 
 $\xz$ is clean data, $\xt$ the corrupted state at time $t$, $\eps$ standard Gaussian noise,
 $\alpha(t)$ and $\sigma(t)$ the interpolation coefficients, and $\guide$ the guidance scale.
-The deck writes the guidance scale as a Greek gamma; this book uses $\guide$ to avoid
-collision with the discount factor $\disc$ in
-Chapter~\ref{ch:04-intro-reinforcement-learning}, which is a deliberate departure from the
-speaker's notation and the only one in this chapter.
+The deck writes the guidance scale as a Greek gamma. It is $\guide$ here, to keep it clear of the
+discount factor in Chapter~\ref{ch:04-intro-reinforcement-learning}.
 
 \section*{Why it matters}
 
-The parameterisation argument is the most portable idea here: whenever a literature presents
-$n$ competing methods, it is worth asking whether they are $n$ choices of one coefficient.
+The parameterisation argument travels furthest. Whenever a literature presents $n$ competing
+methods, ask whether they are $n$ choices of one coefficient.
 The spectral analysis connects directly to Stanković's lecture
 (Chapter~\ref{ch:09-spectral-analysis-dags}), which also treats a spectrum as the object to
 manipulate, though on graphs rather than grids, and to Veličković's argument
@@ -158,7 +154,7 @@ dictate the model. Classifier-free guidance reappears in the summer school's
 multimodal tutorial, where it is the single line the notebook asks to be written by hand.
 
 \begin{aside}
-Two threads worth pulling. The personal notes record the claim that diffusion models are
+Two threads to pull. The personal notes record the claim that diffusion models are
 essentially RNNs, which permits training much deeper networks. That framing is not on the
 slides in those words, though it is consistent with the iterative-refinement picture where
 one network is applied repeatedly with a time input; treat it as a remark from the room

@@ -3,8 +3,7 @@
 
 \lecturemeta{Isidora Stankovi\'{c}}{Faculty of Electrical Engineering, University of Montenegro}
 
-This is the tightest technical talk of the week: one obstruction, one construction, one proof
-that the construction costs nothing. Graph signal processing supplies a Fourier transform by
+One obstruction, one construction, one proof that the construction costs nothing. Graph signal processing supplies a Fourier transform by
 diagonalising the adjacency matrix, and on a directed acyclic graph that machinery fails
 completely, because a DAG's adjacency matrix is nilpotent and therefore has every eigenvalue
 equal to zero. Stankovi\'{c}'s answer is to add a return edge to close the graph into a cycle,
@@ -50,9 +49,9 @@ meaningful. The spectrum, not the graph, is what breaks.
 \includegraphics[width=0.86\textwidth]{figures/spectral-analysis-dags-1.jpg}
 \caption{Where the obstruction comes from, from the Spectral Analysis of DAGs lecture. Topologically
 ordering a DAG's vertices makes the adjacency matrix strictly upper triangular, which forces
-$\Adj^{K} = \vect{0}$ and hence $\lambda_i = 0$ for every $i$. The lecture's own aside, bottom
-right, is the one worth remembering: this is the same matrix structure as a causal attention mask,
-so every decoder-only transformer has the same degenerate spectrum.}
+$\Adj^{K} = \vect{0}$ and hence $\lambda_i = 0$ for every $i$. The lecture's own aside, bottom right: this is the same
+matrix structure as a causal attention mask, so every decoder-only transformer has the same
+degenerate spectrum.}
 \label{fig:spectral-analysis-dags-1}
 \end{figure}
 
@@ -139,7 +138,7 @@ filter order, following each speaker's own usage.
 \section*{Why it matters}
 
 The lecture's own hook, that a strictly upper triangular adjacency matrix looks like a causal
-attention mask, is the connection worth chasing. It means every decoder-only transformer is a DAG
+attention mask, is the connection to chase. It means every decoder-only transformer is a DAG
 whose spectral analysis is currently unavailable, and this construction is a candidate route to
 it. That places the talk directly between Dieleman's spectral view of diffusion
 (Chapter~\ref{ch:03-diffusion-models}), which treats the spectrum as the object being generated,
@@ -149,9 +148,7 @@ complete contribution: an obstruction, a fix, a proof that the fix is free, and 
 check of the one assumption that could fail.
 
 \begin{aside}
-The exhaustive diagonalisability check is the part worth imitating. The construction's soft spot
-is not the spectrum but the requirement of distinct eigenvalues, and rather than assume genericity
-the talk enumerates all $2^{21}$ connected DAGs on eight vertices and reports the failure rate. A
-percentage from a complete enumeration on small instances is much stronger evidence than an
-asymptotic argument, and it costs an afternoon.
+The construction's soft spot is not the spectrum but the requirement of distinct eigenvalues. Instead
+of assuming genericity, the talk enumerates all $2^{21}$ connected DAGs on eight vertices and reports
+the failure rate. A complete enumeration on small instances costs an afternoon.
 \end{aside}
