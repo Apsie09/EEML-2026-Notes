@@ -3,16 +3,12 @@
 Summary notes from the Eastern European Machine Learning Summer School, held in Cetinje,
 Montenegro, from 27 July to 1 August 2026.
 
-Eleven lecture chapters and three synthesis chapters, 59 pages. These are notes, not a
-transcript. Each lecture chapter states what the lecture was arguing, gives the three to six
-ideas that carry that argument together with the mathematics where the mathematics is the
-point, and closes by locating the lecture among the others.
+Fifty-nine pages covering the eleven lectures, with three chapters at the end drawing them
+together. These are notes rather than a transcript. Each lecture chapter states what the lecture
+was arguing, gives the three to six ideas that carry that argument along with the mathematics
+where the mathematics is the point, and closes by locating the lecture among the others.
 
-The three synthesis chapters at the end are the reason the rest exists. They cover the ideas
-that recurred across the week including two places where speakers disagreed, the open problems
-raised, and an ordered queue of material worth returning to.
-
-Download the built PDF from `master.pdf`, or build it yourself as described below.
+The built book is `master.pdf`. It can also be rebuilt from source, as described below.
 
 ## The week
 
@@ -30,10 +26,36 @@ Download the built PDF from `master.pdf`, or build it yourself as described belo
 | | 11 | Computationally-Efficient Learning | Dan Alistarh |
 | Sat 1 Aug | 12 | A Modern Tutorial on Geometric Deep Learning | Petar Velickovic |
 
-Four tutorial notebooks also ran during the week, on reinforcement learning, multimodal
-learning, mechanistic interpretability and quantization. They are not written up here because
-they are self contained and better worked through directly. Lecture chapters point to the
-matching notebook where one exists.
+## The last three chapters
+
+Chapter 13, **Cross-cutting Themes**, follows six ideas that surfaced in more than one lecture,
+including two places where speakers reached the same territory and disagreed about what it meant.
+
+Chapter 14, **Research Directions**, separates the open problems the speakers named from
+directions inferred by putting two lectures side by side, and marks which is which.
+
+Chapter 15, **Worth Revisiting**, is thirteen specific things from the week that reward a second
+pass, each with a pointer and a reason.
+
+## What is not here
+
+Four tutorial notebooks also ran during the week, on reinforcement learning, multimodal learning,
+mechanistic interpretability and quantization. They are not written up, since the notebooks are
+self contained and better worked through directly. Lecture chapters point to the matching tutorial
+where one exists.
+
+Anything in the notes that did not come from a lecture sits in a marked editorial note, so it is
+always clear which claims belong to a speaker and which do not.
+
+## Figures
+
+All 25 figures come from the speakers' own slide decks, or from photographs of slides projected
+during the two lectures where no deck was distributed. Copyright in that material stays with the
+respective speakers. They appear here with the permission of the EEML organisers, and any speaker
+who would prefer a figure removed can open an issue and it will be taken down.
+
+Every caption names the lecture the figure came from. One figure is not an extract: the greedy
+layerwise pretraining diagram in Chapter 2 is redrawn, because that lecture distributed no deck.
 
 ## Building
 
@@ -50,37 +72,13 @@ Then:
 | Command | What it does |
 |--|--|
 | `make` | builds `master.pdf` |
-| `make check` | fails on undefined references, undefined citations, missing files, overfull lines and em dashes |
+| `make check` | fails on undefined references, missing files, overfull lines and em dashes |
 | `make pages` | prints the page count of every chapter |
 | `make clean` | removes build products |
 
-## Figures
+## Corrections and reuse
 
-All 25 figures are reproduced from the speakers' own slide decks, or from photographs of
-slides projected during the two lectures where no deck was distributed. Copyright in that
-material stays with the respective speakers. The figures appear here with the permission of
-the EEML organisers. Any speaker who would rather a figure were removed can open an issue and
-it will be taken down.
+Corrections are welcome. Open an issue for anything that misrepresents a lecture.
 
-Every caption names the lecture the figure came from. One figure is not an extract: the
-greedy layerwise pretraining diagram in Chapter 2 is redrawn in TikZ, because that lecture
-distributed no deck.
-
-`tools/prep_images.py` is the pipeline that produced the figures. It converts HEIC, finds the
-projector screen in a photograph, crops at full resolution, and exports figures with metadata
-stripped. Regenerating the figures needs the original decks, which are not in this repository.
-
-## Accuracy
-
-Every displayed equation was checked against its source slide at full resolution rather than
-against extracted text, because text extraction garbles mathematics. One transcription error
-was found that way and corrected. Where a slide's notation was changed, for instance to avoid
-a symbol clashing across two lectures, the chapter's Notation section says so.
-
-Anything in these notes that did not come from a lecture sits in a marked box, so it is always
-clear which claims belong to a speaker and which are the author's own.
-
-## Reuse
-
-The written text and the tooling are the author's own work and may be reused with attribution.
-The figures are not covered by that, for the reason given above.
+The written text is the author's own work and may be reused with attribution. The figures are not
+covered by that, for the reason given above.
