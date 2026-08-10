@@ -1,93 +1,79 @@
 \chapter{Worth Revisiting}
 \label{ch:revisit}
 
-An ordered queue, ranked by estimated value per hour spent. Each entry gives a reason and a pointer.
-
-\section*{Highest priority}
+Thirteen things from the week that reward a second pass, in no particular order. Some are readings,
+some are exercises, and a few are loose ends that nobody has tied up.
 
 \begin{enumerate}
-\item \textbf{The 4-bit failure in the quantization tutorial}, the section headed 8-bit RTN.
-  \emph{Reason:} the fastest route to making Alistarh's inverse-Hessian derivation feel necessary
-  rather than decorative, since naive rounding visibly destroys a model that 8-bit rounding leaves
-  intact. Chapter~\ref{ch:10-efficient-learning} supplies the theory immediately afterwards.
 
-\item \textbf{The Golden Gate steering exercises}, numbers 9 to 11 of the mechanistic
-  interpretability tutorial. \emph{Reason:} activation steering end to end in three exercises, and the one technique from the
-  week that transfers to any model already wrapped in TransformerLens.
+\item \textbf{The 4-bit failure in the quantization tutorial}, in the section headed 8-bit RTN.
+  Round-to-nearest quantization is essentially lossless at 8 bits and visibly destroys the same model
+  at 4. Watching that happen before reading Chapter~\ref{ch:10-efficient-learning} is what makes the
+  inverse-Hessian derivation feel necessary rather than decorative.
 
-\item \textbf{The two lectures on training networks online.}
-  Chapter~\ref{ch:06-continual-learning}, then Chapter~\ref{ch:07-to-be-figured-out}.
-  \emph{Reason:} the personal notes flag this explicitly as a goal, and the two lectures that
-  address it disagree. Lyle's mechanism first, then Pascanu's objection. Lyle's deflationary point,
-  that storing the data resolves the easier half outright, settles more cases than expected.
+\item \textbf{Activation steering}, exercises 9 to 11 of the mechanistic interpretability tutorial.
+  A steering vector is built from the contrast between two sets of prompts, added to the residual
+  stream mid-generation, and the effect on the output is unmistakable. The whole method fits in three
+  exercises and transfers to any model that can be wrapped in TransformerLens.
 
-\item \textbf{Dieleman's spectral autoregression post.}
-  \url{https://sander.ai/2023/07/20/perspectives.html}.
-  \emph{Reason:} the slide version, Figure~\ref{fig:diffusion-models-3}, compresses the argument
-  into four panels. The post carries the derivation, and it is the single most reusable idea from
-  the diffusion lecture.
+\item \textbf{Continual learning, read as a disagreement.} Chapter~\ref{ch:06-continual-learning}
+  and then Chapter~\ref{ch:07-to-be-figured-out}. Lyle treats plasticity loss as a fixable fault in
+  the optimiser and the architecture; Pascanu treats the same territory as evidence that
+  gradient-based credit assignment structurally depends on i.i.d.\ data. Reading them in that order
+  makes the gap between the two positions visible in a way neither lecture does alone.
 
-\item \textbf{The PPO and GRPO implementations}, Part~2 of the reinforcement learning tutorial.
-  \emph{Reason:} PPO is built with a critic, at full memory cost, and GRPO then removes it in a few
-  lines. That ordering is what makes GRPO's appeal legible, and it is the current default for
-  language-model post-training.
-\end{enumerate}
+\item \textbf{Dieleman on diffusion as spectral autoregression},
+  \url{https://sander.ai/2023/07/20/perspectives.html}. The slide version, Figure~\ref{fig:diffusion-models-3}, compresses
+  the argument to four panels. The post carries the derivation, and it is the most reusable idea in
+  the diffusion lecture: the noise schedule is a frequency schedule.
 
-\section*{Second tier}
+\item \textbf{PPO and GRPO, implemented in that order}, Part~2 of the reinforcement learning
+  tutorial. PPO is built first with a critic, at full memory cost, and GRPO then removes the critic
+  in a few lines by standardising rewards within a sampled group. The ordering is what makes GRPO's
+  appeal legible rather than merely stated.
 
-\begin{enumerate}\setcounter{enumi}{5}
-\item \textbf{The Kazhdan--Lusztig experiment.}~\citep{davies2021}, and
-  Chapter~\ref{ch:08-ml-for-mathematics}.
-  \emph{Reason:} the cleanest available example of attribution output becoming a mathematical
-  statement, and a usable template for making a model's internals legible enough to constitute a
-  claim.
+\item \textbf{The Kazhdan--Lusztig experiment}~\citep{davies2021}, with
+  Chapter~\ref{ch:08-ml-for-mathematics}. Gradient attribution on a trained GNN flagged particular
+  edges, those edges suggested a decomposition, and the decomposition became a conjecture. It is the
+  clearest example available of a model's internals being legible enough to turn into a mathematical
+  statement.
 
-\item \textbf{The linear recurrent unit derivation, all six steps.}
-  \citet{orvieto2023}, and Chapter~\ref{ch:07-to-be-figured-out}.
-  \emph{Reason:} an ablation dressed as an architecture, whose negative results are the substance:
-  HiPPO is unnecessary, continuous time is unnecessary, and complex numbers may buy nothing but
-  compactness. Preferable to a Mamba explainer as a first reading on state space models.
+\item \textbf{The linear recurrent unit derivation, all six steps.} \citet{orvieto2023}, with
+  Chapter~\ref{ch:07-to-be-figured-out}. An ablation dressed as an architecture, where the negative
+  results are the substance: HiPPO is unnecessary, continuous time is unnecessary, and complex
+  numbers may buy nothing beyond compactness. A better first reading on state space models than most
+  explainers.
 
-\item \textbf{CKA and the invariance argument around it.}~\citep{kornblith2019}, and
-  Chapter~\ref{ch:02-representational-geometry}.
-  \emph{Reason:} a small formula with a large amount of thinking behind it. The transferable habit
-  is to ask, of any similarity measure, which transformations it has been built to ignore.
-
-\item \textbf{PECNET as a baseline.} Poster B20 of the poster session.
-  \emph{Reason:} recorded in the personal notes as a specific thing to try on specific data. The
-  only entry in this queue that is an experiment rather than a reading, and therefore the one most
-  likely to decay if deferred.
+\item \textbf{CKA and the invariance argument around it}~\citep{kornblith2019}, with
+  Chapter~\ref{ch:02-representational-geometry}. A small formula with a great deal of thinking behind
+  it. The transferable habit is to ask of any similarity measure which transformations it has been
+  built to ignore, and whether those are the ones the downstream task ignores too.
 
 \item \textbf{The eight-episode TD versus Monte Carlo exercise.} Slides 37 to 39 of the
-  reinforcement learning deck, and Chapter~\ref{ch:04-intro-reinforcement-learning}.
-  \emph{Reason:} five minutes with pen and paper, and it permanently fixes the difference between
-  fitting observed data and fitting the model that data implies. Best attempted before reading the
-  answer.
-\end{enumerate}
+  reinforcement learning deck, with Chapter~\ref{ch:04-intro-reinforcement-learning}. Five minutes
+  with pen and paper, and it fixes the difference between fitting the observed data and fitting the
+  model that data implies. Best attempted before looking at the answer.
 
-\section*{Lower priority, but not to be lost}
-
-\begin{enumerate}\setcounter{enumi}{10}
-\item \textbf{Cho's computational identifiability.} Chapter~\ref{ch:05-statistics-estimation}, final
-  section, and~\citet{bynum2026identifiability}. \emph{Reason:} the most conceptually novel material
-  of the week, and the one idea from the summer school most likely to change how a problem is framed
-  rather than how it is solved.
+\item \textbf{Computational identifiability.} Chapter~\ref{ch:05-statistics-estimation}, final
+  section, and~\citet{bynum2026identifiability}. Identifiability defined relative to a prior over
+  problems, a hypothesis space and an optimiser, rather than absolutely. The idea from the week most
+  likely to change how a problem is framed rather than how it is solved.
 
 \item \textbf{Zero-padding applied to causal attention.}
-  Chapter~\ref{ch:09-spectral-analysis-dags}, together with the inferred direction in
-  Chapter~\ref{ch:research-directions}. \emph{Reason:} possibly nothing, possibly a paper. Cheap to
-  sanity-check on a small causal mask before committing effort.
+  Chapter~\ref{ch:09-spectral-analysis-dags}, with the inferred direction in
+  Chapter~\ref{ch:research-directions}. A causally-masked transformer is a DAG, so its adjacency
+  spectrum collapses. Whether Stankovi\'{c}'s construction says anything useful about attention is
+  untested, and cheap to sanity-check on a small mask.
 
-\item \textbf{Geometric deep learning mathematical prerequisites.} Recorded in the personal notes as
+\item \textbf{PECNET with a state space model}, presented at the poster session by Mustafa Abdullah
+  Hakkoz for regional agricultural forecasting. Worth pairing with the state space material in
+  Chapter~\ref{ch:07-to-be-figured-out}, since the poster puts a hybrid to work on a real forecasting
+  problem rather than on a benchmark.
+
+\item \textbf{The geometric deep learning prerequisites},
   \url{https://arxiv.org/abs/2508.02723}, with the course at
-  \url{https://geometricdeeplearning.com}. \emph{Reason:} required for the derivations, not for
-  applying the four Gs. Worth the time only if the intent is to derive an architecture rather than
-  use one.
-\end{enumerate}
+  \url{https://geometricdeeplearning.com}. The group- and representation-theoretic background is not
+  needed to apply the four Gs, only to derive them. Time well spent for anyone intending to build an
+  architecture from a symmetry rather than pick one off the shelf.
 
-\begin{aside}
-Two items from the personal notes are absent from this queue because they were resolved during the
-write-up. The AlphaFold 2 gauge slide whose image attachment is missing from disk is recovered as
-Figure~\ref{fig:geometric-deep-learning-4}, extracted from the deck. And the Liverpool corner-kick
-result is TacticAI, Figure~\ref{fig:geometric-deep-learning-3} and~\citet{wang2024tacticai}.
-\end{aside}
+\end{enumerate}
