@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="figures/EEML_logo.png" width="360" alt="EEML">
+</p>
+
 # EEML 2026 Lecture Notes
 
 Summary notes from the Eastern European Machine Learning Summer School, held in Cetinje,
